@@ -108,7 +108,7 @@ public abstract class SQLiteDataHelper {
 
 - Catalogo son temas de bajo crecimiento como sexo
 
-- Cuando construyes primero construyes el papa, pero cuando destruyes, primero destruyes los hijos
+- Cuando construyes primero construyes el papá, pero cuando destruyes, primero destruyes los hijos
 
 ```java
 DROP TABLE IF EXISTS Catalogo; //Elimino hijo, luego papa
@@ -271,7 +271,7 @@ try {
 
 ```
 
-- El inge por facilidad y ense;anza genra abreviaturas al declarar clases, pero nosotros debemos escribir las palabras completas.
+- El inge por facilidad y enseñanza genera abreviaturas al declarar clases, pero nosotros debemos escribir las palabras completas.
 
 ## Importancia de las clases BL
 
@@ -358,7 +358,7 @@ public class HIPersonaTipoBL {
 
 ### Uso de una Excepción perzonalizada
 
-1. Creamos la carpeta FrameWork
+1. Creamos la carpeta Framework
 
 2. Generamos una clase, la cual servirá de excepción personalizada
 
@@ -381,7 +381,7 @@ public class HIException extends Exception{
 ```
 > SplashScreenForm, no te olvides de poner el sufijo de la carpeta correspondiente.
 
-- los elementos estáticos me ayudan a que si debo volver a llmar cosas, no gasten memoria y más bien ocupen lo que ya se tiene.
+- los elementos estáticos me ayudan a que si debo volver a llamar cosas, no gasten memoria y más bien ocupen lo que ya se tiene.
 
 ## Creación de la capa GUI - Grafical User Interface
 
@@ -507,7 +507,7 @@ public class HIMainForm extends JFrame { //al extender de JFrame, esta clase ya 
 
 > Definimos los listeners y las diversas pantallas que se mostrarán en la interfaz.
 
-> Por el momento, JPanel son genéricos, ya que aún se necesitan crear los botones que llamarán a cada interfaz.
+> Por el momento, los JPanel son genéricos, ya que aún se necesitan crear los botones que llamarán a cada interfaz.
 
 ```java
 package UserInterface;
@@ -521,7 +521,7 @@ public abstract class HIIAStyle {
 }
 ```
 
-> En la presente clase, generaremos todos los URL y diversos componenetes que harán del programa mucho más mantenible, de manera que en vez de tocar varias partes del código, únicamente cambiemos lo que se necesita desde un solo lugar.
+> En la presente clase, generaremos todos los URL y diversos componentes que harán del programa mucho más mantenible, de manera que en vez de tocar varias partes del código, únicamente cambiemos lo que se necesita desde un solo lugar.
 
 
 
