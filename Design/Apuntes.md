@@ -321,7 +321,7 @@ public class HIPersonaTipoBL {
 
 ```
 
-## Importancia del manejo de Excpeciones
+## Importancia del manejo de Excpeciones - FRAMEWORK
 
 > El manejo de excepciones evita sorpresas para el programador y el cliente, indicándole de manera entendible cuál fue el error que apareció.
 
@@ -382,3 +382,147 @@ public class HIException extends Exception{
 > SplashScreenForm, no te olvides de poner el sufijo de la carpeta correspondiente.
 
 - los elementos estáticos me ayudan a que si debo volver a llmar cosas, no gasten memoria y más bien ocupen lo que ya se tiene.
+
+## Creación de la capa GUI - Grafical User Interface
+
+![alt text](image-6.png)
+
+> La presente imagen, muestra algunas de las pantallas que el programa poseerá.
+
+1. Iniciamos creando los siguientes paquetes y archivos en el proyecto.
+
+![alt text](image-7.png)
+
+
+---
+
+```java 
+package UserInterface.Form;
+
+import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+
+import UserInterface.HIIAStyle;
+
+public abstract class HISplashScreenForm {
+    private static JFrame       frmSplash;
+    private static JProgressBar prbLoading;
+    private static ImageIcon    icoImage;
+    private static JLabel       lblSplash;
+
+    public static void show() {
+        icoImage = new ImageIcon(HIIAStyle.URL__SPLASH);
+        lblSplash = new JLabel(icoImage);
+        prbLoading = new JProgressBar(0, 100);
+
+        prbLoading.setStringPainted(true);
+
+        frmSplash = new JFrame();
+        frmSplash.setUndecorated(true); //quito bordes
+        frmSplash.getContentPane().add(lblSplash, BorderLayout.CENTER);//agrego la imagen al centro
+        frmSplash.add(prbLoading, BorderLayout.SOUTH);// agrego la barra de progreso en la parte inferior
+        frmSplash.setSize(icoImage.getIconWidth(), icoImage.getIconHeight()); //ajusto el tamaño del frame al tamaño de la imagen
+        frmSplash.setLocationRelativeTo(null);//centro en la mitad de la pantalla
+        
+        frmSplash.setVisible(true); //muestro el frame
+        for(int i = 0; i <= 100; i+=10){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            prbLoading.setValue(i);
+        }
+        frmSplash.setVisible(false);
+
+        
+    }
+
+}
+```
+> El presente código permite establecer la imagen que aparece al momento de abrir una aplicación como Word.
+
+> Usamos una clase abstracta para que nadie pueda instanciarla y de forma estática para que el programa no gaste memoria en recrear este código y, más bien, lo reutilice.
+
+```java
+package UserInterface.Form;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class HIMainForm extends JFrame { //al extender de JFrame, esta clase ya es un formulario
+    JPanel pnlMenu = new JPanel();
+    JPanel pnlMain = new JPanel();
+
+    public MainForm(String titleApp) {
+        customizeComponent(titleApp);
+        pnlMenu.btnHome.addActionListener(e -> setPanel(new JPanel()));
+        pnlMenu.btnLogin.addActionListener(e -> setPanel(new JPanel()));
+        pnlMenu.btnSexo.addActionListener(e -> setPanel(new JPanel()));
+        pnlMenu.btnLocalidad.addActionListener(e -> setPanel(new JPanel()));
+        // agregar
+        pnlMenu.btnTest.addActionListener(e -> {IAStyle.showMsgError("mensaje de error");});
+    
+    }
+
+    private void setPanel(JPanel formularioPanel) {
+        Container container = getContentPane();
+        container.remove(pnlMain);
+        pnlMain = formularioPanel;
+        container.add(pnlMain, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    private void customizeComponent(String titleApp) {
+        setTitle(titleApp);
+        setSize(930, 800);
+        setResizable(false);
+        setLocationRelativeTo(null); //centrar en la pantalla
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Crear un contenedor para los dos paneles usando BorderLayout
+        Container container = getContentPane();
+        container.setLayout(new BorderLayout());
+
+        // Afregar los paneles al contenedor
+        container.add(pnlMenu, BorderLayout.WEST);
+        container.add(pnlMain, BorderLayout.CENTER);
+        setVisible(true);
+    }
+
+
+    
+
+}
+
+```
+
+> Definimos los listeners y las diversas pantallas que se mostrarán en la interfaz.
+
+> Por el momento, JPanel son genéricos, ya que aún se necesitan crear los botones que llamarán a cada interfaz.
+
+```java
+package UserInterface;
+
+import java.net.URL;
+
+public abstract class HIIAStyle {
+
+    public static final URL URL__SPLASH = HIIAStyle.class.getResource("/UserInterface/Resource/Img/Splash.jpg");
+
+}
+```
+
+> En la presente clase, generaremos todos los URL y diversos componenetes que harán del programa mucho más mantenible, de manera que en vez de tocar varias partes del código, únicamente cambiemos lo que se necesita desde un solo lugar.
+
+
+
+
